@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./UI/Header";
+import Login from "./Components/Login/Login";
+import UserProfile from "./Components/UserProfile/UserProfile";
+import Cart from "./Components/Cart/Cart";
+import Items from "./Components/Items/Items";
+
+import { useSelector } from 'react-redux';
 
 function App() {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const showCart = useSelector(state => state.cart.showCart);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header></Header>
+      {!isLoggedIn && <Login></Login>}
+      {isLoggedIn && <UserProfile></UserProfile>}
+      {isLoggedIn && showCart && <Cart></Cart>}
+      {isLoggedIn && <Items></Items>}
+    </>
   );
 }
 
